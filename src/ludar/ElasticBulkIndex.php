@@ -30,6 +30,8 @@ class ElasticBulkIndex {
 	}
 
 	// Index one document
+	// @id doc id
+	// @data array of field=>value
 	public function index($id, $data) {
 		// Collect data ...
 		$this->param[] = [
