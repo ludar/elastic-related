@@ -1,0 +1,12 @@
+{
+	"name": "ludar/elastic-related",
+	"autoload":{
+		"psr-0":{
+			"ludar": "src/"
+		}
+	},
+	"require": {
+		"php": ">=5.4.0",
+		"elasticsearch/elasticsearch": "^2.1"
+	}
+}
