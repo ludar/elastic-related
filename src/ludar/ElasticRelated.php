@@ -153,7 +153,7 @@ class ElasticRelated {
 		foreach ($fields as $_fields) {
 			$mlt = array_merge($template, [
 				'fields' => is_array($_fields['fields']) ? $_fields['fields'] : [$_fields['fields']],
-				'boost' => isset($_fields['boost']) ? $_fields['boost'] : 0,
+				'boost' => isset($_fields['boost']) ? $_fields['boost'] : 1,
 					]);
 
 			$queries[] = [ 'more_like_this' => $mlt];
