@@ -5,7 +5,7 @@ Basic composer.json to use the package
 {
 	"repositories": [
 	{
-		"type": "vcs",
+		"type": "git",
 		"url": "https://github.com/ludar/elastic-related.git"
 	}	
 	],
