@@ -18,8 +18,9 @@ class ElasticRelated {
 		$builder = ClientBuilder::create();
 
 		if ($hosts) {
-			if (!is_array($hosts))
+			if (!is_array($hosts)) {
 				$hosts = [$hosts];
+			}
 
 			$builder->setHosts($hosts);
 		}
@@ -30,13 +31,13 @@ class ElasticRelated {
 	public function esIndexExists() {
 		return $this->client->indices()->exists([
 					'index' => $this->index,
-				]);
+		]);
 	}
 
 	public function esDropIndex() {
 		return $this->client->indices()->delete([
 					'index' => $this->index,
-				]);
+		]);
 	}
 
 	// @fields list of fields to be indexed
@@ -57,8 +58,8 @@ class ElasticRelated {
 							$this->type => [
 								'properties' => $properties
 							]
-					]]
-				]);
+						]]
+		]);
 	}
 
 	// Index a single document
@@ -69,7 +70,7 @@ class ElasticRelated {
 					'type' => $this->type,
 					'id' => $id,
 					'body' => $fields,
-				]);
+		]);
 	}
 
 	// Bulk index documents
@@ -78,7 +79,7 @@ class ElasticRelated {
 					'index' => $this->index,
 					'type' => $this->type,
 					'body' => $param,
-				]);
+		]);
 	}
 
 	// Remove a document from the index
@@ -87,7 +88,7 @@ class ElasticRelated {
 					'index' => $this->index,
 					'type' => $this->type,
 					'id' => $id,
-				]);
+		]);
 	}
 
 	// Get indexed data by document @id
@@ -96,7 +97,7 @@ class ElasticRelated {
 					'index' => $this->index,
 					'type' => $this->type,
 					'id' => $id,
-				]);
+		]);
 	}
 
 	// Find similar documents with a single request by fields values
@@ -120,10 +121,10 @@ class ElasticRelated {
 								,
 								'min_term_freq' => 1,
 								'min_doc_freq' => 1,
-						],
+							],
 						],
 						'size' => $size,
-						],
+					],
 						]
 		);
 	}
@@ -154,7 +155,7 @@ class ElasticRelated {
 			$mlt = array_merge($template, [
 				'fields' => is_array($_fields['fields']) ? $_fields['fields'] : [$_fields['fields']],
 				'boost' => isset($_fields['boost']) ? $_fields['boost'] : 1,
-					]);
+			]);
 
 			$queries[] = [ 'more_like_this' => $mlt];
 		}
@@ -168,10 +169,10 @@ class ElasticRelated {
 							'dis_max' => [
 								'queries' => $queries,
 								'tie_breaker' => $tieBreaker,
-						],
+							],
 						],
 						'size' => $size,
-						],
+					],
 						]
 		);
 	}
