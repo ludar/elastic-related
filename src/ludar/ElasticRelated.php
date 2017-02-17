@@ -41,7 +41,7 @@ class ElasticRelated {
 	}
 
 	// @fields list of fields to be indexed
-	public function esSetupIndex($fields, $extraFieldsMapping = []) {
+	public function esSetupIndex($fields, $extraFieldsMapping = [], $settings = []) {
 		$properties = [];
 		foreach ($fields as $field) {
 			//mlt queries only work on string + term_vector indices
@@ -53,14 +53,19 @@ class ElasticRelated {
 
 		$properties = array_merge($properties, $extraFieldsMapping);
 
+		$body = [
+			$this->type => [
+				'properties' => $properties
+			],
+		];
+
+		if (count($settings) > 0) {
+			$body['settings'] = $settings;
+		}
+
 		return $this->client->indices()->create([
 					'index' => $this->index,
-					'body' => [
-						'mappings' => [
-							$this->type => [
-								'properties' => $properties
-							]
-						]]
+					'body' => $body,
 		]);
 	}
 
