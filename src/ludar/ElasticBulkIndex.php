@@ -16,12 +16,17 @@ namespace ludar;
 class ElasticBulkIndex {
 
 	private $client, $chunk, $param, $n;
+	private $callbackIssue = null;
 
 	// @chunk int bulk chunk size
-	public function __construct(ElasticRelated &$client, $chunk) {
+	public function __construct(ElasticRelated &$client, $chunk, $callbackIssue = null) {
 		$this->client = $client;
 		$this->chunk = $chunk;
 		$this->reset();
+
+		if (is_callable($callbackIssue)) {
+			$this->callbackIssue = $callbackIssue;
+		}
 	}
 
 	public function reset() {
@@ -51,7 +56,11 @@ class ElasticBulkIndex {
 		if (!$this->param)
 			return;
 
-		$this->client->esBulk($this->param);
+		$result = $this->client->esBulk($this->param);
+		if (!is_null($this->callbackIssue)) {
+			call_user_func($this->callbackIssue, $result);
+		}
+
 		$this->reset();
 	}
 
