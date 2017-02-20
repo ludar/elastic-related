@@ -54,8 +54,10 @@ class ElasticRelated {
 		$properties = array_merge($properties, $extraFieldsMapping);
 
 		$body = [
-			$this->type => [
-				'properties' => $properties
+			'mappings' => [
+				$this->type => [
+					'properties' => $properties
+				]
 			],
 		];
 
