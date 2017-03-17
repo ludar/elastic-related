@@ -56,7 +56,10 @@ class ElasticRelated {
 		$body = [
 			'mappings' => [
 				$this->type => [
-					'properties' => $properties
+					'properties' => $properties,
+					'_all' => [
+						'enabled' => false, // This saves some space. We don't use it anyways.
+					],
 				]
 			],
 		];
