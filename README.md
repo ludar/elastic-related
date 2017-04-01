@@ -1,3 +1,6 @@
+Elastic 5.x branch
+---
+
 # elastic-related
 
 Basic composer.json to use the package
@@ -10,7 +13,7 @@ Basic composer.json to use the package
 	}	
 	],
 	"require": {
-		"ludar/elastic-related": "dev-master"
+		"ludar/elastic-related": "dev-es5"
 	}
 }
 ```
