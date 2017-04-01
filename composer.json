@@ -7,6 +7,6 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"elasticsearch/elasticsearch": "^2.1"
+		"elasticsearch/elasticsearch": "^5.0"
 	}
 }

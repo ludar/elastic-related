@@ -46,7 +46,7 @@ class ElasticRelated {
 		foreach ($fields as $field) {
 			//mlt queries only work on string + term_vector indices
 			$properties[$field] = [
-				'type' => 'string',
+				'type' => 'text',
 				'term_vector' => 'yes',
 			];
 		}
