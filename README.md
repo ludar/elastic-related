@@ -1,3 +1,6 @@
+Elastic 2.x branch
+---
+
 # elastic-related
 
 Basic composer.json to use the package
