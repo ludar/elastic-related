@@ -6,14 +6,12 @@ use Elasticsearch\ClientBuilder;
 
 class ElasticRelated {
 
-	private $index, $type, $client;
+	private $index, $client;
 
 	// @index string index name
-	// @type string document type
 	// @hosts string|array elastic nodes' hosts. 127.0.0.1:9200 by default
-	public function __construct($index, $type, $hosts = '') {
+	public function __construct($index, $hosts = '') {
 		$this->index = $index;
-		$this->type = $type;
 
 		$builder = ClientBuilder::create();
 
@@ -55,12 +53,7 @@ class ElasticRelated {
 
 		$body = [
 			'mappings' => [
-				$this->type => [
-					'properties' => $properties,
-					'_all' => [
-						'enabled' => false, // This saves some space. We don't use it anyways.
-					],
-				]
+				'properties' => $properties,
 			],
 		];
 
@@ -79,7 +72,6 @@ class ElasticRelated {
 	public function esIndex($id, $fields) {
 		return $this->client->index([
 					'index' => $this->index,
-					'type' => $this->type,
 					'id' => $id,
 					'body' => $fields,
 		]);
@@ -89,7 +81,6 @@ class ElasticRelated {
 	public function esBulk(&$param) {
 		return $this->client->bulk([
 					'index' => $this->index,
-					'type' => $this->type,
 					'body' => $param,
 		]);
 	}
@@ -98,7 +89,6 @@ class ElasticRelated {
 	public function esDelete($id) {
 		return $this->client->delete([
 					'index' => $this->index,
-					'type' => $this->type,
 					'id' => $id,
 		]);
 	}
@@ -107,7 +97,6 @@ class ElasticRelated {
 	public function esGet($id) {
 		return $this->client->get([
 					'index' => $this->index,
-					'type' => $this->type,
 					'id' => $id,
 		]);
 	}
@@ -119,7 +108,6 @@ class ElasticRelated {
 	public function esMoreLikeThis($id, $fields, $size = 10) {
 		return $this->client->search([
 					'index' => $this->index,
-					'type' => $this->type,
 					'_source' => false,
 					'body' => [
 						'query' => [
@@ -127,7 +115,6 @@ class ElasticRelated {
 								'fields' => is_array($fields) ? $fields : [$fields],
 								'like' => [
 									'_index' => $this->index,
-									'_type' => $this->type,
 									'_id' => $id,
 								]
 								,
@@ -154,7 +141,6 @@ class ElasticRelated {
 		$template = [
 			'like' => [
 				'_index' => $this->index,
-				'_type' => $this->type,
 				'_id' => $id,
 			],
 			'min_term_freq' => 1,
@@ -174,7 +160,6 @@ class ElasticRelated {
 
 		return $this->client->search([
 					'index' => $this->index,
-					'type' => $this->type,
 					'_source' => false,
 					'body' => [
 						'query' => [
