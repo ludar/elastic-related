@@ -1,4 +1,4 @@
-Elastic 5.x branch
+Elastic 7.x branch
 ---
 
 # elastic-related
@@ -13,7 +13,7 @@ Basic composer.json to use the package
 	}	
 	],
 	"require": {
-		"ludar/elastic-related": "dev-es5"
+		"ludar/elastic-related": "dev-es7"
 	}
 }
 ```
