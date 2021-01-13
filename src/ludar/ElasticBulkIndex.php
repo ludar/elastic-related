@@ -17,11 +17,13 @@ class ElasticBulkIndex {
 
 	private $client, $chunk, $param, $n;
 	private $callbackIssue = null;
+	private $refresh = "false";
 
 	// @chunk int bulk chunk size
-	public function __construct(ElasticRelated &$client, $chunk, $callbackIssue = null) {
+	public function __construct(ElasticRelated &$client, $chunk, $callbackIssue = null, $refresh = "false") {
 		$this->client = $client;
 		$this->chunk = $chunk;
+		$this->refresh = $refresh;
 		$this->reset();
 
 		if (is_callable($callbackIssue)) {
@@ -56,7 +58,7 @@ class ElasticBulkIndex {
 		if (!$this->param)
 			return;
 
-		$result = $this->client->esBulk($this->param);
+		$result = $this->client->esBulk($this->param, $this->refresh);
 		if (!is_null($this->callbackIssue)) {
 			call_user_func($this->callbackIssue, $result);
 		}
