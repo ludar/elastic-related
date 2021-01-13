@@ -78,10 +78,11 @@ class ElasticRelated {
 	}
 
 	// Bulk index documents
-	public function esBulk(&$param) {
+	public function esBulk(&$param, $refresh = "false") {
 		return $this->client->bulk([
 					'index' => $this->index,
 					'body' => $param,
+					'refresh' => $refresh,
 		]);
 	}
 
